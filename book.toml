@@ -1,3 +1,6 @@
 title = "Rust by Example"
 description = "Traduction française de Rust by Example"
 authors = ["Anthony Defranceschi <chaacygg@gmail.com>"]
+
+[output.html.playground]
+editable = true

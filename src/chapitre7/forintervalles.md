@@ -4,7 +4,22 @@ L'ensemble `for in` peut être utilisé pour itérer à l'aide d'une instance `I
 
 Écrivons les règles de *FizzBuzz* en utilisant la boucle `for` au lieu de `while`.
 
-{{#playpen source/forintervallessource0.rs}}
+```rust,editable
+fn main() {
+    // `n` prendra pour valeur: 1, 2, ..., 100  au fil des itérations. 
+    for n in 1..101 {
+        if n % 15 == 0 {
+            println!("fizzbuzz");
+        } else if n % 3 == 0 {
+            println!("fizz");
+        } else if n % 5 == 0 {
+            println!("buzz");
+        } else {
+            println!("{}", n);
+        }
+    }
+}
+```
 
 ## Voir aussi
 

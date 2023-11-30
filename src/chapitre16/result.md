@@ -15,7 +15,22 @@ En travaillant avec Rust, vous rencontrerez probablement des méthodes renvoyant
 
 Voyons ce qu'il se passe lorsque nous parvenons à convertir une chaîne de caractères et lorsque ce n'est pas le cas:
 
-{{#playpen source/resultsource0.rs}}
+```rust,editable
+fn double_number(number_str: &str) -> i32 {
+    // Essayons d'utiliser la méthode `unwrap` pour récupérer le nombre.
+    // Va-t-elle nous mordre ?
+    2 * number_str.parse::<i32>().unwrap()
+}
+
+fn main() {
+    let twenty = double_number("10");
+    println!("double is {}", twenty);
+
+    let tt = double_number("t");
+    println!("double is {}", tt);
+}
+
+```
 
 Dans le cas où nous ne parvenons pas à la convertir, `parse()` nous laisse avec l'erreur sur laquelle `unwrap` a paniqué. Vous noterez également que le message d'erreur affiché par `panic` est assez désagréable.
 

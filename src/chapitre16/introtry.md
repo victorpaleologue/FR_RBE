@@ -9,7 +9,36 @@ Une fois l'instance `Err` trouvée, il y a deux actions possibles:
 
 La macro `try!` est *presque*<sup>[1](#note0)</sup> équivalent à la méthode `unwrap()` mais effectue un renvoi prématuré au lieu de planter lorsqu'un conteneur `Err` est récupéré. Voyons comment nous pouvons simplifier l'exemple précédent qui utilisait les combinateurs: 
 
-{{#playpen source/introtrysource0.rs}}
+```rust,editable
+// On utilise une `String` comme type d'erreur.
+type Result<T> = std::result::Result<T, String>;
+
+fn double_first(vec: Vec<&str>) -> Result<i32> {
+    let first = try!(vec.first().ok_or(
+        "Please use a vector with at least one element.".to_owned(),
+    ));
+
+    let value = try!(first.parse::<i32>().map_err(|e| e.to_string()));
+
+    Ok(2 * value)
+}
+
+fn print(result: Result<i32>) {
+    match result {
+        Ok(n) => println!("The first doubled is {}", n),
+        Err(e) => println!("Error: {}", e),
+    }
+}
+
+fn main() {
+    let empty = vec![];
+    let strings = vec!["tofu", "93", "18"];
+
+    print(double_first(empty));
+    print(double_first(strings));
+}
+
+```
 
 Notez que, jusqu'ici, nous avons utilisé les `String`s pour les erreurs. Cependant, elles sont quelque peu limitées en tant que type d'erreur. Dans la prochaine section, nous apprendrons à créer des erreurs plus structurées, plus riches, en définissant leur propre type.
 

@@ -11,7 +11,28 @@ Les traits destinés à valider le renvoi d'une closure sont quelque peu différ
 
 En dehors de cela, le mot-clé `move` doit être utilisé, indiquant que toutes les captures se feront par valeur pour la closure courante. Il est nécessaire d'utiliser `move` car aucune capture par référence ne pourrait être libérée aussitôt la fonction terminée, laissant des références invalides dans la closure.
 
-{{#playpen source/outputclosuresource0.rs}}
+```rust,editable
+fn create_fn() -> Box<Fn()> {
+    let text = "Fn".to_owned();
+
+    Box::new(move || println!("This is a: {}", text))
+}
+
+fn create_fnmut() -> Box<FnMut()> {
+    let text = "FnMut".to_owned();
+
+    Box::new(move || println!("This is a: {}", text))
+}
+
+fn main() {
+    let fn_plain = create_fn();
+    let mut fn_mut = create_fnmut();
+
+    fn_plain();
+    fn_mut();
+}
+
+```
 
 ## Voir aussi
 
